@@ -76,7 +76,7 @@ At the end of each rounds, all the players compare their total number of maki sy
 Tempura cards have to be collected in pairs at the end of the round in order to give points
 - **2 cards = 5 points**
 - 1 card = 0 points
-- 3 cards = 5 points (1 tempura is alone = 0 points)
+- 3 cards = 5 points (1 tempura alone = 0 points)
 - 4 cards = 10 points
 
 ### Sashimi 
@@ -151,52 +151,7 @@ Chopstick cards allow players to pick 2 cards on a future turn.
 9. The player with the highest score out of the 3 rounds wins
 
 ---
-
-## Playing V0 Terminal Version
-
-The V0 terminal version is pass-and-play on a single computer, it can only be played by player in the same room and on the same computer. 
-
-### Starting a Game
-
-1. Run the game (see Setup Guide)
-2. Enter number of players (between 2 and 5 players)
-3. Enter each player's name and follow the instructions
-4. To pick a card, players should select the number corresponding to the card they want to select
-5. Players should look away when it is not their time to play, in order to not see their opponents hands
-
----
-
-## Playing V1 Basic Local Web Version
-
-The V1 basic local web version is implementing the gameplay in your browser using FastAPI and Websocket for simultaneous players connections.
-
-### Creating a game for the host player
-
-1. After setting up the local server, open `http://localhost:8000` in your browser
-2. Under "Create New Game":
-   - Enter your name
-   - Click **Create Game**
-3. You'll see a 6-character game code (for example, `ABC123`)
-
-### Joining a game for the other players
-
-1. Open `http://localhost:8000` (in another tab or device)
-2. Under "Join Existing Game":
-   - Enter the game code given by the host
-   - Enter your name
-   - Click **Join Game**
-3. You have to wait for all players to join, only the host sees the **Start Game** button, and you need at least 2 players to start
-
-### Play the game
-1. To pick a card, players should select or type the number corresponding to the card they want to select in the input field
-2. To use chopsticks, check the checkbox and enter your second card number
-3. Click **Confirm Selection**, wait for other players to play, and just play the game untill the end
-
----
-
-## Playing V2 Polished Web Local Version 
-
-The V2 is a polished local web version working the same as in V1 but with better UI and UX gameplay.
+## Playing a Game
 
 ### Creating a game for the host player
 
@@ -234,4 +189,4 @@ The V2 is a polished local web version working the same as in V1 but with better
 
 ---
 
-## Now check the SETUP_GUIDE.md to understand how to start the server and launch your first game. Enjoy!
+## Now check the README.md to understand how to start the server and launch your first game. Enjoy!

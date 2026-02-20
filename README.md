@@ -156,4 +156,4 @@ sushi-go-online/
 
 ---
 
-## Now check the RULEBOOK.md to understand the full game rules and scoring: Enjoy!
+## Now check the `RULEBOOK.md` to understand the full game rules and scoring: Enjoy!

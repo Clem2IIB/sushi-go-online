@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sushi Go! Online</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🍣 Sushi Go! 🍱</h1>
+            <p class="subtitle">The Pick and Pass Card Game</p>
+        </header>
+
+        <main class="main-menu">
+            <div class="menu-card" id="create-section">
+                <h2>Create Game</h2>
+                <div class="form-group">
+                    <input type="text" id="host-name" placeholder="Your name" maxlength="20">
+                </div>
+                <button class="btn btn-primary" id="create-btn">Create New Game</button>
+            </div>
+
+            <div class="divider">OR</div>
+
+            <div class="menu-card" id="join-section">
+                <h2>Join Game</h2>
+                <div class="form-group">
+                    <input type="text" id="join-name" placeholder="Your name" maxlength="20">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="game-code" placeholder="Game Code" maxlength="6" style="text-transform: uppercase;">
+                </div>
+                <button class="btn btn-secondary" id="join-btn">Join Game</button>
+            </div>
+
+            <div class="error-message" id="error-msg"></div>
+        </main>
+
+        <footer class="footer">
+            <p>2-5 Players | Based on the card game by Phil Walker-Harding</p>
+        </footer>
+    </div>
+
+    <script src="/static/js/api.js"></script>
+    <script>
+        function showError(msg) {
+            const el = document.getElementById('error-msg');
+            el.textContent = msg;
+            el.style.display = 'block';
+            setTimeout(() => el.style.display = 'none', 3000);
+        }
+
+        document.getElementById('create-btn').addEventListener('click', async () => {
+            const name = document.getElementById('host-name').value.trim() || 'Host';
+            
+            const result = await API.createGame(name);
+            
+            if (result.success) {
+                sessionStorage.setItem('player_id', result.player_id);
+                sessionStorage.setItem('game_code', result.game_code);
+                sessionStorage.setItem('player_name', name);
+                sessionStorage.setItem('is_host', 'true');
+                window.location.href = `/lobby/${result.game_code}`;
+            } else {
+                showError(result.error || 'Failed to create game');
+            }
+        });
+
+        document.getElementById('join-btn').addEventListener('click', async () => {
+            const name = document.getElementById('join-name').value.trim() || 'Player';
+            const gameCode = document.getElementById('game-code').value.trim().toUpperCase();
+            
+            if (!gameCode || gameCode.length !== 6) {
+                showError('Please enter a valid 6-character game code');
+                return;
+            }
+            
+            const result = await API.joinGame(gameCode, name);
+            
+            if (result.success) {
+                sessionStorage.setItem('player_id', result.player_id);
+                sessionStorage.setItem('game_code', result.game_code);
+                sessionStorage.setItem('player_name', name);
+                sessionStorage.setItem('is_host', 'false');
+                window.location.href = `/lobby/${result.game_code}`;
+            } else {
+                showError(result.error || 'Failed to join game');
+            }
+        });
+
+        // Enter key support
+        document.getElementById('host-name').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') document.getElementById('create-btn').click();
+        });
+        document.getElementById('game-code').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') document.getElementById('join-btn').click();
+        });
+    </script>
+</body>
+</html>

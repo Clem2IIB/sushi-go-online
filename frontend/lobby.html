@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sushi Go! - Lobby</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🍣 Sushi Go! 🍱</h1>
+            <div class="game-code-display">
+                <span>Game Code:</span>
+                <span id="lobby-code" class="code">------</span>
+                <button class="btn-small" id="copy-code-btn">📋 Copy</button>
+            </div>
+        </header>
+
+        <main class="lobby-content">
+            <div class="players-list">
+                <h2>Players <span id="player-count">(0/5)</span></h2>
+                <ul id="lobby-players"></ul>
+            </div>
+
+            <div class="lobby-info">
+                <p id="lobby-status">Waiting for players to join...</p>
+                <p class="hint">Share the game code with your friends!</p>
+            </div>
+
+            <button id="start-game-btn" class="btn btn-primary btn-large" disabled>
+                Start Game
+            </button>
+            <p id="start-hint" class="hint">Need at least 2 players</p>
+        </main>
+    </div>
+
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/websocket.js"></script>
+    <script src="/static/js/lobby.js"></script>
+</body>
+</html>

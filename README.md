@@ -1,25 +1,22 @@
-# Sushi Go! - V2 Installation Guide
+# Sushi Go! Online
 
-This README.md covers setup and running instructions for the V2 of the Sushi Go! game.
-Check the `RULEBOOK.md` file to understand how to play
+A web-based multiplayer implementation of the popular card drafting game Sushi Go! by Phil Walker-Harding.
+Play with 2-5 players in real-time from different devices on your local network.
+Check the RULEBOOK.md file to understand the game rules and how to play.
 
 ---
 
-## V2 Polished Web Local Version
+## Installation
 
 ### Setup
 
-0. **Extract the zip file : `sushi_go_v2`**
-In your terminal, navigate to the v2 folder:
 ```bash
-# On Windows, run:
-cd $HOME\\*Downloads*\\sushi_go_v2  # or the folder where you extracted the zip-file
-
-# On MacOS, run:
-cd ~/Downloads/sushi_go_v2    # or the folder where you extracted the zip-file
+# Clone the repository
+git clone https://github.com/Clem2IIB/sushi-go-online.git
+cd sushi-go-online
 ```
 
-1. **Create a virtual environment:**
+**Create a virtual environment:**
 ```bash
 # On Windows, run:
 python -m venv .venv    # to create a virtual environment folder
@@ -32,7 +29,7 @@ python3 -m venv .venv   # to create a virtual environment folder
 source .venv/bin/activate   # to activate the virtual environment in your terminal
 ```
 
-2. **Install python requirements:**
+**Install python requirements:**
 ```bash
 pip install -r requirements.txt
 ```
@@ -42,7 +39,9 @@ It will install all needed libraries in your virtual environment for the game to
 - `uvicorn` - for the server
 - `websockets` - for real-time player communication with the server
 
-### Running the Server
+---
+
+## Running the Server
 
 ```bash
 # Navigate to backend folder
@@ -57,36 +56,58 @@ You should now see:
 INFO:     Uvicorn running on http://0.0.0.0:8000
 ```
 
-### Playing the Game
+To stop the server, press `Ctrl+C` in the terminal.
 
+---
 
-**On the same computer:** (Not the best setup for several players, but it is working)
-- Open your browser to: `http://localhost:8000`, and create a game as the host
-- For multiple players on the same computer, open multiple browser tabs to `http://localhost:8000`, each tab is a different player
-- Now each player has its own tab, and you can switch between each tab for each player to play his hand
+## Playing the Game
 
+### Creating a game for the host player
 
-**Players on different devices (LAN gameplay play):** (Best gameplay if you have several players with their own laptop)
+1. Open your browser to: `http://localhost:8000`
+2. Under "Create New Game":
+   - Enter your name
+   - Click **Create Game**
+3. You'll see a 6-character game code (for example, `ABC123`)
+
+### Joining a game for the other players
+
+1. Open `http://localhost:8000` (in another tab or device)
+2. Under "Join Existing Game":
+   - Enter the game code given by the host
+   - Enter your name
+   - Click **Join Game**
+3. You have to wait for all players to join, only the host sees the **Start Game** button, and you need at least 2 players to start
+
+### Playing on the same computer
+
+Open multiple browser tabs to `http://localhost:8000`, each tab is a different player. Switch between each tab for each player to play their hand. (Not the best setup for several players, but it is working)
+
+### Playing on different devices (LAN gameplay)
+
+This is the best gameplay if you have several players with their own laptop.
 
 1. For the host, find your computer's local IP address:
-   - Windows: `Get-NetIPAddress -AddressFamily IPv4` 
-   - Mac/Linux: `ipconfig getifaddr en0`(if you're on WIFI) or `ipconfig getifaddr en1` (if you're on Ethernet) in your terminal
-   - You should get something like this :  `192.168.1.100`
-   - Then, start the server as shown above, and send this new link to other players `http://YOUR_IP:8000` (keeping the example `http://192.168.1.100:8000`)
+   - Windows: `Get-NetIPAddress -AddressFamily IPv4`
+   - Mac/Linux: `ipconfig getifaddr en0` (WiFi) or `ipconfig getifaddr en1` (Ethernet)
+   - You should get something like this: `192.168.1.100`
+   - Then, start the server as shown above, and send this link to other players: `http://YOUR_IP:8000` (keeping the example `http://192.168.1.100:8000`)
 
-2. For other players connect to the new IP address link: `http://HOST_IP:8000` (keeping the example, connect to `http://192.168.1.100:8000`)
+2. For other players, connect to the IP address link: `http://HOST_IP:8000`
 
 3. All devices must be on the **same WiFi/network**
 
+### Gameplay flow
 
-### Stopping the Server
+1. **Click on a card** in your hand to select it
+2. To use chopsticks, select your first card, a prompt asks you if you want to select a second card, then click your second card
+3. Click **Confirm Selection**, your selection is locked, just wait for other players to play, and play the game until the end
 
-Press `Ctrl+C` in the terminal.
+---
 
+## Card Images
 
-### Card Images
-
-The V2 version requires PNG card images in `frontend/assets/cards/`. Make sure to check that these files exist:
+The game uses PNG card images located in `frontend/assets/cards/`. Make sure these files exist:
 - `maki_1.png`, `maki_2.png`, `maki_3.png`
 - `tempura.png`, `sashimi.png`, `dumpling.png`
 - `salmon_sushi.png`, `squid_sushi.png`, `egg_sushi.png`
@@ -94,14 +115,10 @@ The V2 version requires PNG card images in `frontend/assets/cards/`. Make sure t
 
 ---
 
-## Now check the RULEBOOK.md to understand how to play the game: Enjoy!
-
----
-
 ## Project Structure
 
-``` bash
-sushi_go/
+```
+sushi-go-online/
 ├── backend/
 │   ├── managers/
 │   │   ├── __init__.py
@@ -124,15 +141,19 @@ sushi_go/
 │   ├── css/
 │   │   └── style.css
 │   ├── js/
-│   │   ├── api.js                   # HTTP API calls 
+│   │   ├── api.js                   # HTTP API calls
 │   │   ├── game.js                  # Main game controller
 │   │   ├── lobby.js                 # Lobby functionality
-│   │   ├── ui.js                    # UI rendering 
-│   │   └── websocket.js             # WebSocket handling 
-│   ├── game.html                    # Game interface 
-│   ├── index.html                   # First landing page 
+│   │   ├── ui.js                    # UI rendering
+│   │   └── websocket.js             # WebSocket handling
+│   ├── game.html                    # Game interface
+│   ├── index.html                   # First landing page
 │   └── lobby.html                   # Pre-game lobby
 ├── requirements.txt
-└── README.md
+├── README.md
 └── RULEBOOK.md
 ```
+
+---
+
+## Now check the RULEBOOK.md to understand the full game rules and scoring: Enjoy!

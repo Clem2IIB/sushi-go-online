@@ -8,10 +8,8 @@
 2. [Card Types](#card-types)
 3. [Scoring Rules](#scoring-rules)
 4. [How to Play](#how-to-play)
-5. [Playing V0 (Terminal)](#playing-v0-terminal-version)
-6. [Playing V1 (Basic Web)](#playing-v1-basic-local-web-version)
-7. [Playing V2 (Polished Web)](#playing-V2-polished-web-local-version)
-8. [Tips & Strategy](#tips--strategy)  
+5. [Playing the Game](#playing-the-game)
+6. [Tips & Strategy](#tips--strategy)  
 
 ---
 
